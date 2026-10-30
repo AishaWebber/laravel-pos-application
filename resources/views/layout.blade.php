@@ -1,7 +1,10 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Laravel POS Application</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Tasks for Today</title>
 
     <style>
         body {
@@ -21,36 +24,49 @@
             text-decoration: none;
         }
 
+        nav a:hover {
+            color: #ffd700;
+        }
+
         .container {
             background-color: white;
             padding: 25px;
             margin-top: 20px;
+            border-radius: 8px;
+            max-width: 900px;
         }
 
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 20px;
+        .task {
+            border-bottom: 1px solid #ccc;
+            padding: 15px 0;
         }
 
-        th, td {
-            border: 1px solid #ccc;
-            padding: 10px;
-            text-align: left;
+        .task:last-child {
+            border-bottom: none;
         }
 
-        th {
-            background-color: #ddd;
+        .completed {
+            color: green;
+            font-weight: bold;
+        }
+
+        .pending {
+            color: orange;
+            font-weight: bold;
+        }
+
+        h1 {
+            color: #222;
         }
     </style>
 </head>
 <body>
 
 <nav>
-    <a href="{{ route('home') }}">Home</a>
+    <a href="{{ route('welcome') }}">Today</a>
+    <a href="{{ route('tasks.index') }}">All Tasks</a>
+    <a href="{{ route('profile') }}">Profile</a>
     <a href="{{ route('about') }}">About</a>
-    <a href="{{ route('customers') }}">Customer Accounts</a>
-    <a href="{{ route('users') }}">User Accounts</a>
 </nav>
 
 <div class="container">
