@@ -1,35 +1,50 @@
-@extends('layout')
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-@section('content')
+    <title>Point-of-Sale Application</title>
+</head>
+<body>
+    <h1>Point-of-Sale Application</h1>
 
-    <h1>Tasks for Today</h1>
+    <p>Welcome to the POS management system.</p>
 
-    <p>
-        Tasks scheduled for {{ now()->format('F d, Y') }}
-    </p>
+    @auth
+        <p>
+            You are currently logged in.
+        </p>
 
-    @forelse ($tasks as $task)
+        <a href="{{ route('customers.index') }}">
+            Customers
+        </a>
 
-        <div class="task">
-            <h3>{{ $task->title }}</h3>
+        <br><br>
 
-            <p>
-                Status:
-                <span class="{{ $task->status }}">
-                    {{ ucfirst($task->status) }}
-                </span>
-            </p>
+        <a href="{{ route('users.index') }}">
+            Users
+        </a>
 
-            <p>
-                Date:
-                {{ $task->task_date->format('F d, Y') }}
-            </p>
-        </div>
+        <br><br>
 
-    @empty
+        <form method="POST" action="{{ route('logout') }}">
+            @csrf
 
-        <p>No tasks are scheduled for today.</p>
+            <button type="submit">
+                Log Out
+            </button>
+        </form>
+    @else
+        <a href="{{ route('login') }}">
+            Log In
+        </a>
 
-    @endforelse
+        <br><br>
 
-@endsection
+        <a href="{{ route('register') }}">
+            Register
+        </a>
+    @endauth
+</body>
+</html>

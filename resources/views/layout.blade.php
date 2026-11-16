@@ -28,6 +28,19 @@
             color: #ffd700;
         }
 
+        nav button {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            margin-right: 20px;
+        }
+
+        nav button:hover {
+            color: #ffd700;
+        }
+
         .container {
             background-color: white;
             padding: 25px;
@@ -58,6 +71,10 @@
         h1 {
             color: #222;
         }
+
+        .logout-form {
+            display: inline;
+        }
     </style>
 </head>
 <body>
@@ -65,9 +82,28 @@
 <nav>
     <a href="{{ route('welcome') }}">Today</a>
     <a href="{{ route('tasks.index') }}">All Tasks</a>
-    <a href="{{ route('customers.index') }}">Customers</a>
-    <a href="{{ route('users.index') }}">Users</a>
-    <a href="{{ route('profile') }}">Profile</a>
+
+    @auth
+        <a href="{{ route('customers.index') }}">Customers</a>
+        <a href="{{ route('users.index') }}">Users</a>
+        <a href="{{ route('profile.edit') }}">Profile</a>
+
+        <form
+            method="POST"
+            action="{{ route('logout') }}"
+            class="logout-form"
+        >
+            @csrf
+
+            <button type="submit">
+                Log Out
+            </button>
+        </form>
+    @else
+        <a href="{{ route('login') }}">Log In</a>
+        <a href="{{ route('register') }}">Register</a>
+    @endauth
+
     <a href="{{ route('about') }}">About</a>
 </nav>
 
