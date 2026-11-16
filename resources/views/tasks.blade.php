@@ -1,33 +1,89 @@
 @extends('layout')
 
 @section('content')
+    <h1>All Tasks</h1>
 
-    <h1>Complete Task List</h1>
+    @if (session('success'))
+        <p style="color: green;">
+            {{ session('success') }}
+        </p>
+    @endif
 
-    <p>All tasks in the system</p>
+    @auth
+        <a href="{{ route('tasks.create') }}">
+            Create New Task
+        </a>
 
-    @forelse ($tasks as $task)
+        <br><br>
+    @endauth
 
-        <div class="task">
-            <h3>{{ $task->title }}</h3>
+    <table border="1" cellpadding="10">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Title</th>
+                <th>Status</th>
+                <th>Task Date</th>
 
-            <p>
-                Status:
-                <span class="{{ $task->status }}">
-                    {{ ucfirst($task->status) }}
-                </span>
-            </p>
+                @auth
+                    <th>Actions</th>
+                @endauth
+            </tr>
+        </thead>
 
-            <p>
-                Date:
-                {{ $task->task_date->format('F d, Y') }}
-            </p>
-        </div>
+        <tbody>
+            @forelse ($tasks as $task)
+                <tr>
+                    <td>{{ $task->id }}</td>
+                    <td>{{ $task->title }}</td>
 
-    @empty
+                    <td>
+                        @if ($task->status === 'done')
+                            <span style="color: green;">
+                                Done
+                            </span>
+                        @else
+                            <span style="color: orange;">
+                                Pending
+                            </span>
+                        @endif
+                    </td>
 
-        <p>No tasks found.</p>
+                    <td>
+                        {{ $task->task_date->format('F d, Y') }}
+                    </td>
 
-    @endforelse
+                    @auth
+                        <td>
+                            <a href="{{ route('tasks.edit', $task) }}">
+                                Edit
+                            </a>
 
+                            <form
+                                method="POST"
+                                action="{{ route('tasks.destroy', $task) }}"
+                                style="display: inline;"
+                            >
+                                @csrf
+                                @method('DELETE')
+
+                                <button
+                                    type="submit"
+                                    onclick="return confirm('Archive this task?')"
+                                >
+                                    Archive
+                                </button>
+                            </form>
+                        </td>
+                    @endauth
+                </tr>
+            @empty
+                <tr>
+                    <td colspan="5">
+                        No active tasks found.
+                    </td>
+                </tr>
+            @endforelse
+        </tbody>
+    </table>
 @endsection

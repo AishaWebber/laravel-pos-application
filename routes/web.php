@@ -43,6 +43,15 @@ Route::middleware('auth')->group(function () {
 
     Route::resource('users', UserController::class);
 
+    Route::resource('tasks', TaskController::class)
+        ->only([
+            'create',
+            'store',
+            'edit',
+            'update',
+            'destroy',
+        ]);
+
     Route::get('/profile', [ProfileController::class, 'edit'])
         ->name('profile.edit');
 

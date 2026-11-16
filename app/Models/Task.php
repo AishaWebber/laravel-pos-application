@@ -10,9 +10,11 @@ class Task extends Model
         'title',
         'status',
         'task_date',
+        'is_archived',
     ];
 
     protected $casts = [
         'task_date' => 'date',
+        'is_archived' => 'boolean',
     ];
 }
