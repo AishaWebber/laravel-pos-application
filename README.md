@@ -1,22 +1,32 @@
-# Laravel POS Application
+# Laravel POS Task Management System
 
-This project is a Laravel laboratory exercise that demonstrates routes, controllers, Blade views, MVC architecture, and static PHP arrays.
+This project is a Laravel-based Point-of-Sale application with task management, customer accounts, user accounts, authentication, validation, soft deletion, and task-completion email notifications.
 
 ## Features
 
-- Landing page
-- About page
-- Customer Accounts page
-- User Accounts page
-- Navigation between all pages
-- Static PHP arrays for customer and user records
-- Blade `@foreach` loops
+- Laravel Breeze authentication
+- Login, registration, and logout
+- Public task list
+- Protected task create, edit, update, and archive actions
+- Customer CRUD
+- User account CRUD
+- Avatar upload for users
+- Form validation
+- Soft deletion using the `is_archived` column
+- Email notification when a task status changes to `done`
+
+## Requirements
+
+- PHP 8.2 or higher
+- Composer
+- MySQL
+- Node.js and npm
+- Laravel
 
 ## Installation
 
-Clone or download this repository.
-
-Install the dependencies:
+Clone the repository:
 
 ```bash
-composer install
+git clone YOUR_GITHUB_REPOSITORY_LINK
+cd sample_app
